@@ -11,10 +11,10 @@ import pathlib
 import sys
 import typing
 
-from dotbot.plugin import Plugin
-from dotbot.plugins.link import Link
+import dotbot.plugin
+import dotbot.plugins.link
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 VALID_DIRECTIVES: set[str] = {"firefox"}
 
@@ -56,7 +56,7 @@ def _get_profile_directories() -> typing.Iterable[pathlib.Path]:
                 yield profile
 
 
-class Firefox(Plugin):
+class Firefox(dotbot.plugin.Plugin):
     def can_handle(self, directive: str) -> bool:
         """
         Flag whether this plugin supports the given *directive*.
@@ -86,7 +86,7 @@ class Firefox(Plugin):
     def _handle_user_js(self, value: typing.Any) -> bool:
         """Create links to a specified ``user.js`` in each Firefox profile directory."""
 
-        link_plugin = Link(self._context)
+        link_plugin = dotbot.plugins.link.Link(self._context)
         links: dict[str, typing.Any] = {
             str(profile / "user.js"): value for profile in _get_profile_directories()
         }

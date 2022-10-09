@@ -1,10 +1,12 @@
 [tool.poetry]
 name = "dotbot-firefox"
-version = "1.0.0"
+version = "1.0.1"
 description = "Configure your Firefox profile(s) using dotbot"
 authors = ["Kurt McKee <contactme@kurtmckee.org>"]
 license = "MIT"
 readme = "README.rst"
+repository = "https://github.com/kurtmckee/dotbot-firefox"
+keywords = ["dotbot", "dotbot-plugin", "firefox", "dotfiles"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
