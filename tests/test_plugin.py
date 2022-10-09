@@ -8,6 +8,7 @@ import sys
 import typing
 import unittest.mock
 
+import dotbot.plugin
 import pytest
 
 if sys.version_info >= (3, 11):
@@ -82,7 +83,7 @@ def test_directive_handling_success(get_profile, link_success):
     link_mock = unittest.mock.MagicMock()
     link_mock.return_value = link_mock
     link_mock.handle.return_value = link_success
-    with unittest.mock.patch("dotbot_firefox.Link", link_mock):
+    with unittest.mock.patch("dotbot_firefox.dotbot.plugins.link.Link", link_mock):
         assert plugin.handle("firefox", {"user.js": "js-file"}) is link_success
     assert link_mock.handle.call_count == 1
     assert link_mock.handle.call_args.args == ("link", {target: "js-file"})
@@ -96,7 +97,7 @@ def test_logging_when_no_profiles_found(get_profile):
     log_mock = unittest.mock.Mock()
     link_mock = unittest.mock.MagicMock()
 
-    with unittest.mock.patch("dotbot_firefox.Link", link_mock):
+    with unittest.mock.patch("dotbot_firefox.dotbot.plugins.link.Link", link_mock):
         with unittest.mock.patch("dotbot_firefox.log", log_mock):
             assert plugin.handle("firefox", {"user.js": "js-file"}) is True
 
@@ -130,3 +131,19 @@ def test_versions_match():
     assert python_version != ""
 
     assert toml_version == python_version
+
+
+def test_exactly_one_class_inheriting_from_dotbot_plugin():
+    """Verify that there is only one class inheriting from dotbot.plugin.Plugin."""
+
+    subclass_quantity = len(
+        [
+            name
+            for name in dir(dotbot_firefox)
+            if (
+                hasattr(getattr(dotbot_firefox, name), "__bases__")
+                and issubclass(getattr(dotbot_firefox, name), dotbot.plugin.Plugin)
+            )
+        ]
+    )
+    assert subclass_quantity == 1, "Only 1 class can inherit from dotbot.plugin.Plugin"
