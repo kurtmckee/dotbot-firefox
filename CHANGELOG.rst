@@ -1,5 +1,5 @@
 ..  dotbot-firefox -- Configure your Firefox profile(s) using dotbot.
-..  Copyright 2022 Kurt McKee <contactme@kurtmckee.org>
+..  Copyright 2022-2023 Kurt McKee <contactme@kurtmckee.org>
 ..  SPDX-License-Identifier: MIT
 
 
