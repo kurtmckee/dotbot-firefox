@@ -30,7 +30,9 @@ If found, the ``user.js`` settings will be copied to ``prefs.js`` and used.
 You can enforce a consistent Firefox configuration across all your profiles
 by using dotbot-firefox to create symlinks to a custom ``user.js``.
 The plugin will find Firefox profile directories that contain a ``prefs.js`` file
-and will use dotbot's builtin Link plugin to create the symlinks.
+and will use dotbot's builtin Link plugin to create the symlinks. 
+
+Also it had been extended for userChrome.css styles to customize the look and feel for Firefox.
 
 
 Installation
@@ -139,6 +141,7 @@ The value of the key follows the syntax of the `dotbot Link plugin`_.
     # "user.js" can be specified as a string.
     firefox:
       user.js: firefox/user.js
+      userChrome.css: firefox/userChrome.css
 
 
     # Example 2:

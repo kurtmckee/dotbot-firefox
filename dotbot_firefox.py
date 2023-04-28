@@ -2,7 +2,6 @@
 # Copyright 2022-2023 Kurt McKee <contactme@kurtmckee.org>
 # SPDX-License-Identifier: MIT
 
-
 from __future__ import annotations
 
 import logging
@@ -33,16 +32,6 @@ def _get_profile_directories() -> typing.Iterable[pathlib.Path]:
     else:
         defaults.append("~/.mozilla/firefox")
 
-        # When Firefox is installed and run as a snap,
-        # it stores its profile info under $SNAP_USER_COMMON.
-        #
-        # It might be more correct to introspect $SNAP_USER_COMMON,
-        # in case it's been customized, using a command like:
-        #
-        #     snap run --shell firefox -c 'echo $SNAP_USER_COMMON'
-        #
-        # ...but that seems unnecessary, and may be fragile and insecure.
-        #
         snap_user_common = "~/snap/firefox/common"
         defaults.append(f"{snap_user_common}/.mozilla/firefox")
 
@@ -81,6 +70,10 @@ class Firefox(dotbot.plugin.Plugin):
         if "user.js" in data:
             success &= self._handle_user_js(data["user.js"])
 
+        if "userChrome.css" in data or "chrome" in data:
+            user_chrome_value = data.get("userChrome.css", data.get("chrome"))
+            success &= self._handle_user_chrome(user_chrome_value)
+
         return success
 
     def _handle_user_js(self, value: typing.Any) -> bool:
@@ -96,3 +89,26 @@ class Firefox(dotbot.plugin.Plugin):
             return True
 
         return link_plugin.handle("link", links)
+
+    def _handle_user_chrome(self, value: typing.Any) -> bool:
+        """Link userChrome.css or chrome directory in each Firefox profile directory."""
+        success = True
+
+        if isinstance(value, str):
+            src = pathlib.Path(os.path.expandvars(os.path.expanduser(value)))
+
+            if src.is_file() and src.name == "userChrome.css":
+                link_plugin = dotbot.plugins.link.Link(self._context)
+                links = {str(profile / "chrome" / "userChrome.css"): value for profile in _get_profile_directories()}
+                success &= link_plugin.handle("link", links)
+            elif src.is_dir() and src.name == "chrome":
+                link_plugin = dotbot.plugins.link.Link(self._context)
+                for profile in _get_profile_directories():
+                    chrome_dst = profile / "chrome"
+                    links = {str(chrome_dst / f.relative_to(src)): str(f) for f in src.glob("**/*") if f.is_file()}
+                    success &= link_plugin.handle("link", links)
+            else:
+                log.error(f"Invalid path for userChrome.css or chrome directory: {value}")
+                success = False
+
+        return success
