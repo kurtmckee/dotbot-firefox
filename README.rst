@@ -158,6 +158,11 @@ The value of the key follows the syntax of the `dotbot Link plugin`_.
         path: firefox/user.js
         force: true
 
+    # Example 4:
+    # Recurisvely linking chrome
+    firefox:
+      user.js: firefox/user.js
+      chrome: firefox/chrome
 
 Firefox profile locations
 =========================
