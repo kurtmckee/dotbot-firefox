@@ -99,16 +99,25 @@ class Firefox(dotbot.plugin.Plugin):
 
             if src.is_file() and src.name == "userChrome.css":
                 link_plugin = dotbot.plugins.link.Link(self._context)
-                links = {str(profile / "chrome" / "userChrome.css"): value for profile in _get_profile_directories()}
+                links = {
+                    str(profile / "chrome" / "userChrome.css"): value
+                    for profile in _get_profile_directories()
+                }
                 success &= link_plugin.handle("link", links)
             elif src.is_dir() and src.name == "chrome":
                 link_plugin = dotbot.plugins.link.Link(self._context)
                 for profile in _get_profile_directories():
                     chrome_dst = profile / "chrome"
-                    links = {str(chrome_dst / f.relative_to(src)): str(f) for f in src.glob("**/*") if f.is_file()}
+                    links = {
+                        str(chrome_dst / f.relative_to(src)): str(f)
+                        for f in src.glob("**/*")
+                        if f.is_file()
+                    }
                     success &= link_plugin.handle("link", links)
             else:
-                log.error(f"Invalid path for userChrome.css or chrome directory: {value}")
+                log.error(
+                    f"Invalid path for userChrome.css or chrome directory: {value}"
+                )
                 success = False
 
         return success
