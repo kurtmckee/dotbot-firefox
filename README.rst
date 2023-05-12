@@ -165,6 +165,7 @@ The dotbot-firefox plugin is aware of the following default directories:
 *   ``~/Library/Application Support/Firefox/Profiles`` (Mac OS)
 *   ``~/.mozilla/firefox`` (Linux)
 *   ``~/snap/firefox/common/.mozilla/firefox`` (Firefox Snap for Linux)
+*   ``~/.var/app/org.mozilla.firefox/.mozilla/firefox`` (Firefox Flatpak for Linux)
 
 Only profile subdirectories that contain a ``prefs.js`` file
 will be considered valid by the plugin.

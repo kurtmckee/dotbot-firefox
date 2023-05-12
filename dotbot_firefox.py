@@ -46,6 +46,17 @@ def _get_profile_directories() -> typing.Iterable[pathlib.Path]:
         snap_user_common = "~/snap/firefox/common"
         defaults.append(f"{snap_user_common}/.mozilla/firefox")
 
+        # When Firefox is installed and run as a flatpak,
+        # it stores its profile info under this directory:
+        #
+        #     $HOME/.var/app/org.mozilla.firefox
+        #
+        # $HOME can be customized inside the flatpak sandbox environment,
+        # but it seems unlikely that this level of customization will be needed.
+        #
+        flatpak_home = "~/.var/app/org.mozilla.firefox"
+        defaults.append(f"{flatpak_home}/.mozilla/firefox")
+
     for default in defaults:
         path = pathlib.Path(os.path.expandvars(os.path.expanduser(default)))
         if not path.is_dir():
