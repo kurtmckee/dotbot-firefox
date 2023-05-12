@@ -39,12 +39,12 @@ repos:
     rev: 6.0.0
     hooks:
       - id: flake8
-        additional_dependencies: ["flake8-bugbear==23.3.12"]
+        additional_dependencies: ["flake8-bugbear==23.5.9"]
 
       # Allow tox to run flake8 as a linter.
       - id: flake8
         alias: flake8-check
-        additional_dependencies: ["flake8-bugbear==23.3.12"]
+        additional_dependencies: ["flake8-bugbear==23.5.9"]
         stages: [manual]
 
 
