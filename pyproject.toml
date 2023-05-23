@@ -9,11 +9,10 @@ repository = "https://github.com/kurtmckee/dotbot-firefox"
 keywords = ["dotbot", "dotbot-plugin", "firefox", "dotfiles"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">=3.8"
 dotbot = ">=1.19.0"
 
 [tool.poetry.group.dev.dependencies]
-tox = ">=4.4.4"
 scriv = {extras = ["toml"], version = ">=1.2.0"}
 
 [build-system]
@@ -23,6 +22,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.coverage.run]
 branch = true
 parallel = true
+data_file = ".tox/.coverage-data-files/.coverage"
 source = [
     "dotbot_firefox",
     "tests",
@@ -37,6 +37,11 @@ source = [
 [tool.coverage.report]
 fail_under = 100
 
+[tool.mypy]
+packages = "dotbot_firefox"
+strict = true
+sqlite_cache = true
+
 [[tool.mypy.overrides]]
 module = [
     "dotbot.*",
@@ -47,8 +52,14 @@ ignore_missing_imports = true
 [tool.scriv]
 version = "literal: pyproject.toml: tool.poetry.version"
 categories = [
+    "Python support",
     "Added",
     "Removed",
     "Changed",
     "Fixed",
+]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "error",
 ]

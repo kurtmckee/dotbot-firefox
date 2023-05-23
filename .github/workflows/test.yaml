@@ -1,7 +1,6 @@
 name: "Test"
 
 on:
-  - "push"
   - "pull_request"
 
 jobs:
@@ -55,7 +54,9 @@ jobs:
               3.9
               3.10
               3.11
+              3.12
             tox-environments:
+              - "py312"
               - "py311"
               - "py310"
               - "py39"
@@ -67,10 +68,10 @@ jobs:
               name: "Windows"
             pythons: |
               3.8
-              3.11
+              3.12
             tox-environments:
               - "py38"
-              - "py311"
+              - "py312"
 
           # Test lowest and highest versions on Mac.
           - os:
@@ -78,10 +79,10 @@ jobs:
               id: "macos-latest"
             pythons: |
               3.8
-              3.11
+              3.12
             tox-environments:
               - "py38"
-              - "py311"
+              - "py312"
 
     steps:
       # The week number is used for cache-busting.
@@ -97,6 +98,7 @@ jobs:
         uses: "actions/setup-python@v4"
         with:
           python-version: "${{ matrix.run.pythons }}"
+          allow-prereleases: true
           # Cache packages that pip downloads.
           # This does not cache the installed files.
           cache: "pip"
@@ -185,12 +187,6 @@ jobs:
         uses: "actions/download-artifact@v3"
         with:
           name: "dotbot_firefox-${{ github.sha }}.whl"
-
-      - name: "Lint code"
-        run: >
-          .venv/bin/tox run
-          --installpkg "${{ needs.build.outputs.wheel-filename }}"
-          -e lint
 
       - name: "Lint type annotations"
         run: >
