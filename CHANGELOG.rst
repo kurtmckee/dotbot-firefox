@@ -15,6 +15,21 @@ in the ``changelog.d/`` directory on GitHub.
 
 ..  scriv-insert-here
 
+.. _changelog-1.1.0:
+
+1.1.0 — 2023-05-23
+==================
+
+Python support
+--------------
+
+-   Add support for Python 3.12.
+
+Added
+-----
+
+-   Support Firefox Flatpak for Linux profile directories.
+
 .. _changelog-1.0.1:
 
 1.0.1 — 2022-10-08

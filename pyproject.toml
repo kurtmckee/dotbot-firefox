@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dotbot-firefox"
-version = "1.0.1"
+version = "1.1.0"
 description = "Configure your Firefox profile(s) using dotbot"
 authors = ["Kurt McKee <contactme@kurtmckee.org>"]
 license = "MIT"

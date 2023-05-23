@@ -14,7 +14,7 @@ import typing
 import dotbot.plugin
 import dotbot.plugins.link
 
-__version__ = "1.0.1"
+__version__ = "1.1.0"
 
 VALID_DIRECTIVES: set[str] = {"firefox"}
 
