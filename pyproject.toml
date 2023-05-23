@@ -58,3 +58,8 @@ categories = [
     "Changed",
     "Fixed",
 ]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "error",
+]
