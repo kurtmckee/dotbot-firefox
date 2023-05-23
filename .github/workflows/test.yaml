@@ -55,7 +55,9 @@ jobs:
               3.9
               3.10
               3.11
+              3.12
             tox-environments:
+              - "py312"
               - "py311"
               - "py310"
               - "py39"
@@ -67,10 +69,10 @@ jobs:
               name: "Windows"
             pythons: |
               3.8
-              3.11
+              3.12
             tox-environments:
               - "py38"
-              - "py311"
+              - "py312"
 
           # Test lowest and highest versions on Mac.
           - os:
@@ -78,10 +80,10 @@ jobs:
               id: "macos-latest"
             pythons: |
               3.8
-              3.11
+              3.12
             tox-environments:
               - "py38"
-              - "py311"
+              - "py312"
 
     steps:
       # The week number is used for cache-busting.

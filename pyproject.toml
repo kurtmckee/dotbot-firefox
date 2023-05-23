@@ -52,6 +52,7 @@ ignore_missing_imports = true
 [tool.scriv]
 version = "literal: pyproject.toml: tool.poetry.version"
 categories = [
+    "Python support",
     "Added",
     "Removed",
     "Changed",
