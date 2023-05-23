@@ -9,7 +9,7 @@ repository = "https://github.com/kurtmckee/dotbot-firefox"
 keywords = ["dotbot", "dotbot-plugin", "firefox", "dotfiles"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">=3.8"
 dotbot = ">=1.19.0"
 
 [tool.poetry.group.dev.dependencies]
