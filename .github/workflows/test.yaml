@@ -188,12 +188,6 @@ jobs:
         with:
           name: "dotbot_firefox-${{ github.sha }}.whl"
 
-      - name: "Lint code"
-        run: >
-          .venv/bin/tox run
-          --installpkg "${{ needs.build.outputs.wheel-filename }}"
-          -e lint
-
       - name: "Lint type annotations"
         run: >
           .venv/bin/tox run
