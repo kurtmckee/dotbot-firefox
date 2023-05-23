@@ -13,7 +13,6 @@ python = ">=3.8"
 dotbot = ">=1.19.0"
 
 [tool.poetry.group.dev.dependencies]
-tox = ">=4.4.4"
 scriv = {extras = ["toml"], version = ">=1.2.0"}
 
 [build-system]
