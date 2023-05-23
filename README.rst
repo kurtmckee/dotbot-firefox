@@ -1,5 +1,5 @@
 ..  dotbot-firefox -- Configure your Firefox profile(s) using dotbot.
-..  Copyright 2022 Kurt McKee <contactme@kurtmckee.org>
+..  Copyright 2022-2023 Kurt McKee <contactme@kurtmckee.org>
 ..  SPDX-License-Identifier: MIT
 
 
@@ -165,6 +165,7 @@ The dotbot-firefox plugin is aware of the following default directories:
 *   ``~/Library/Application Support/Firefox/Profiles`` (Mac OS)
 *   ``~/.mozilla/firefox`` (Linux)
 *   ``~/snap/firefox/common/.mozilla/firefox`` (Firefox Snap for Linux)
+*   ``~/.var/app/org.mozilla.firefox/.mozilla/firefox`` (Firefox Flatpak for Linux)
 
 Only profile subdirectories that contain a ``prefs.js`` file
 will be considered valid by the plugin.
@@ -190,8 +191,8 @@ Then, follow these steps to create a virtual environment and run the unit tests 
     # Update pip and setuptools, and install wheel
     (.venv) $ pip install -U pip setuptools wheel
 
-    # Install poetry
-    (.venv) $ pip install poetry
+    # Install poetry and tox
+    (.venv) $ pip install poetry tox
 
     # Install all dependencies
     (.venv) $ poetry install

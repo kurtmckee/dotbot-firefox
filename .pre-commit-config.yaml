@@ -1,52 +1,34 @@
-# Update the hooks by running "pre-commit autoupdate".
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
+    rev: v4.4.0
     hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-yaml
       - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: trailing-whitespace
 
   - repo: https://github.com/psf/black
-    rev: 22.8.0
+    rev: 23.3.0
     hooks:
       - id: black
         language_version: python3.8
 
-      # Allow tox to run black as a linter.
-      - id: black
-        alias: black-check
-        stages: [manual]
-        args: [--check]
-
   - repo: https://github.com/pycqa/isort
-    rev: 5.10.1
+    rev: 5.12.0
     hooks:
       - id: isort
-        name: isort (python)
-
-      # Allow tox to run isort as a linter.
-      - id: isort
-        alias: isort-check
-        stages: [manual]
-        args: [--check]
 
   - repo: https://github.com/pycqa/flake8
-    rev: 5.0.4
+    rev: 6.0.0
     hooks:
       - id: flake8
-        additional_dependencies: ["flake8-bugbear==22.9.23"]
-
-      # Allow tox to run flake8 as a linter.
-      - id: flake8
-        alias: flake8-check
-        additional_dependencies: ["flake8-bugbear==22.9.23"]
-        stages: [manual]
-
+        additional_dependencies: ["flake8-bugbear==23.5.9"]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.38.2
+    rev: v3.4.0
     hooks:
       - id: pyupgrade
         args: [ --py38-plus ]

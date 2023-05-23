@@ -1,5 +1,5 @@
 # dotbot-firefox -- Configure your Firefox profile(s) using dotbot.
-# Copyright 2022 Kurt McKee <contactme@kurtmckee.org>
+# Copyright 2022-2023 Kurt McKee <contactme@kurtmckee.org>
 # SPDX-License-Identifier: MIT
 
 
@@ -20,12 +20,13 @@ import dotbot_firefox
 
 
 @pytest.fixture(
-    ids=("windows", "mac", "linux", "linux-snap"),
+    ids=("windows", "mac", "linux", "linux-snap", "linux-flatpak"),
     params=(
         ("win32", "/adrift/win32/appdata/Mozilla/Firefox/Profiles/bogus"),
         ("darwin", "/adrift/darwin/Library/Application Support/Firefox/Profiles/bogus"),
         ("linux", "/adrift/linux/.mozilla/firefox/bogus"),
         ("linux", "/adrift/linux/snap/firefox/common/.mozilla/firefox/bogus"),
+        ("linux", "/adrift/linux/.var/app/org.mozilla.firefox/.mozilla/firefox/bogus"),
     ),
 )
 def get_profile(request, fs, monkeypatch):
