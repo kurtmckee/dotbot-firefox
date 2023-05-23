@@ -67,7 +67,13 @@ def _get_profile_directories() -> typing.Iterable[pathlib.Path]:
                 yield profile
 
 
-class Firefox(dotbot.plugin.Plugin):
+# mypy 1.3.0 reports the following error for the Firefox class:
+#
+#   Class cannot subclass "Plugin" (has type "Any")  [misc]
+#
+# The "type: ignore[misc]" comment below suppresses this specific error.
+#
+class Firefox(dotbot.plugin.Plugin):  # type: ignore[misc]
     def can_handle(self, directive: str) -> bool:
         """
         Flag whether this plugin supports the given *directive*.
@@ -106,4 +112,4 @@ class Firefox(dotbot.plugin.Plugin):
             log.warning("No Firefox profiles found")
             return True
 
-        return link_plugin.handle("link", links)
+        return bool(link_plugin.handle("link", links))

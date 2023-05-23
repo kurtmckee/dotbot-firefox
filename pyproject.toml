@@ -37,6 +37,11 @@ source = [
 [tool.coverage.report]
 fail_under = 100
 
+[tool.mypy]
+packages = "dotbot_firefox"
+strict = true
+sqlite_cache = true
+
 [[tool.mypy.overrides]]
 module = [
     "dotbot.*",
