@@ -21,12 +21,10 @@ jobs:
         id: "setup-python"
         uses: "actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236" # v4.7.1
         with:
-          python-version: "3.11"
+          python-version: "3.12"
           cache: "pip"
           cache-dependency-path: |
             pyproject.toml
-            tox.ini
-            .github/workflows/test.yaml
 
       - name: "Build the project"
         run: "pip wheel ."
@@ -53,47 +51,30 @@ jobs:
           - os:
               id: "ubuntu-latest"
               name: "Ubuntu"
-            pythons: |
-              3.8
-              3.9
-              3.10
-              3.11
-              3.12
-            tox-environments:
-              - "py312"
-              - "py311"
-              - "py310"
-              - "py39"
-              - "py38"
-
-          # Test lowest and highest versions on Windows.
-          - os:
-              id: "windows-latest"
-              name: "Windows"
-            pythons: |
-              3.8
-              3.12
-            tox-environments:
-              - "py38"
-              - "py312"
+            cpythons:
+              - "3.8"
+              - "3.9"
+              - "3.10"
+              - "3.11"
+              - "3.12"
 
           # Test lowest and highest versions on Mac.
           - os:
               name: "MacOS"
               id: "macos-latest"
-            pythons: |
-              3.8
-              3.12
-            tox-environments:
-              - "py38"
-              - "py312"
+            cpythons:
+              - "3.8"
+              - "3.12"
+
+          # Test lowest and highest versions on Windows.
+          - os:
+              id: "windows-latest"
+              name: "Windows"
+            cpythons:
+              - "3.8"
+              - "3.12"
 
     steps:
-      # The week number is used for cache-busting.
-      - name: "Identify week number"
-        shell: "bash"
-        run: "date +'%V' > week-number.txt"
-
       - name: "Checkout branch"
         uses: "actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11" # v4.1.1
 
@@ -101,29 +82,32 @@ jobs:
         id: "setup-python"
         uses: "actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236" # v4.7.1
         with:
-          python-version: "${{ matrix.run.pythons }}"
+          python-version: "${{ join(matrix.run.cpythons, '\n') }}"
           allow-prereleases: true
           # Cache packages that pip downloads.
           # This does not cache the installed files.
           cache: "pip"
           cache-dependency-path: |
-            .github/workflows/test.yaml
             pyproject.toml
             tox.ini
-            week-number.txt
+            requirements/**/*.txt
+
+      - name: "Detect Pythons"
+        uses: "kurtmckee/detect-pythons@cd2193638306e04e41ac36f0f9290f18680138ac" # v1.0.0
 
       - name: "Restore cache"
         id: "restore-cache"
         uses: "actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84" # v3.3.2
         with:
           path: |
+            .mypy_cache/
             .tox/
             .venv/
-          key: "test-os=${{ matrix.run.os.id }}-hash=${{ hashFiles('.github/workflows/test.yaml', 'pyproject.toml', 'tox.ini', 'week-number.txt') }}"
+          key: "test-os=${{ runner.os }}-hash=${{ hashFiles('.python-identifiers', 'pyproject.toml', 'tox.ini', 'requirements/**/*.txt') }}"
 
       - name: "Identify venv path"
         shell: "bash"
-        run: "echo 'venv-path=${{ runner.os == 'Windows' && '.venv/Scripts' || '.venv/bin' }}' >> $GITHUB_ENV"
+        run: "echo 'venv-path=.venv/${{ runner.os == 'Windows' && 'Scripts' || 'bin' }}' >> $GITHUB_ENV"
 
       - name: "Create a virtual environment"
         if: "steps.restore-cache.outputs.cache-hit == false"
@@ -138,62 +122,5 @@ jobs:
           name: "dotbot_firefox-${{ github.sha }}.whl"
 
       - name: "Test"
-        run: >
-          ${{ env.venv-path }}/tox run
-          --installpkg "${{ needs.build.outputs.wheel-filename }}"
-          -e ${{ join(matrix.run.tox-environments, ',') }}
-
-
-  lint:
-    name: "Lint"
-    runs-on: "ubuntu-latest"
-    needs: "build"
-    steps:
-      # The week number is used for cache-busting.
-      - name: "Identify week number"
-        run: "date +'%V' > week-number.txt"
-
-      - name: "Checkout branch"
-        uses: "actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11" # v4.1.1
-
-      - name: "Setup Pythons"
-        id: "setup-python"
-        uses: "actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236" # v4.7.1
-        with:
-          python-version: "3.11"
-          # Cache packages that pip downloads.
-          # This does not cache the installed files.
-          cache: "pip"
-          cache-dependency-path: |
-            .github/workflows/test.yaml
-            pyproject.toml
-            tox.ini
-            week-number.txt
-
-      - name: "Restore cache"
-        id: "restore-cache"
-        uses: "actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84" # v3.3.2
-        with:
-          path: |
-            .mypy_cache/
-            .tox/
-            .venv/
-          key: "lint-hash=${{ hashFiles('.github/workflows/test.yaml', 'pyproject.toml', 'tox.ini', 'week-number.txt') }}"
-
-      - name: "Create a virtual environment"
-        if: "steps.restore-cache.outputs.cache-hit == false"
         run: |
-          python -m venv .venv
-          .venv/bin/python -m pip install --upgrade pip setuptools wheel
-          .venv/bin/pip install tox
-
-      - name: "Download the build artifact"
-        uses: "actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a" # v3.0.2
-        with:
-          name: "dotbot_firefox-${{ github.sha }}.whl"
-
-      - name: "Lint type annotations"
-        run: >
-          .venv/bin/tox run
-          --installpkg "${{ needs.build.outputs.wheel-filename }}"
-          -e mypy
+          ${{ env.venv-path }}/tox run --colored yes --installpkg "${{ needs.build.outputs.wheel-filename }}" -e py${{ join(matrix.run.cpythons, ',py') }},coverage-report-ci,mypy

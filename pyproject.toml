@@ -58,6 +58,7 @@ categories = [
 ]
 
 [tool.pytest.ini_options]
+addopts = "--color=yes"
 filterwarnings = [
     "error",
 ]
