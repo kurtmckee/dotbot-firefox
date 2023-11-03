@@ -10,10 +10,7 @@ keywords = ["dotbot", "dotbot-plugin", "firefox", "dotfiles"]
 
 [tool.poetry.dependencies]
 python = ">=3.8"
-dotbot = ">=1.19.0"
-
-[tool.poetry.group.dev.dependencies]
-scriv = {extras = ["toml"], version = ">=1.2.0"}
+dotbot = ">=1.20.1"
 
 [build-system]
 requires = ["poetry-core>=1.5.0"]
@@ -57,6 +54,7 @@ categories = [
     "Removed",
     "Changed",
     "Fixed",
+    "Development",
 ]
 
 [tool.pytest.ini_options]
