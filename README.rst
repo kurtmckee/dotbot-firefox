@@ -191,8 +191,8 @@ Then, follow these steps to create a virtual environment and run the unit tests 
     # Update pip and setuptools, and install wheel
     (.venv) $ pip install -U pip setuptools wheel
 
-    # Install poetry and tox
-    (.venv) $ pip install poetry tox
+    # Install poetry, tox, and scriv
+    (.venv) $ pip install poetry tox scriv
 
     # Install all dependencies
     (.venv) $ poetry install

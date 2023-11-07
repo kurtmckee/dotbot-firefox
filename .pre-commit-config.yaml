@@ -19,6 +19,14 @@ repos:
           - "--fix=lf"
       - id: "trailing-whitespace"
 
+  - repo: "https://github.com/editorconfig-checker/editorconfig-checker.python"
+    rev: "2.7.3"
+    hooks:
+      - id: "editorconfig-checker"
+        # The README contains sample YAML code that uses 2-space indentation.
+        # This conflicts with the EditorConfig checker, so the file is excluded.
+        exclude: "README.rst"
+
   - repo: "https://github.com/asottile/pyupgrade"
     rev: "v3.15.0"
     hooks:

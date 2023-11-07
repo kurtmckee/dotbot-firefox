@@ -1,0 +1,5 @@
+coverage[toml]
+pyfakefs
+pytest
+pytest-randomly
+tomli; python_version < "3.11"
