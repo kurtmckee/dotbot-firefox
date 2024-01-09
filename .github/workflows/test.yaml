@@ -19,7 +19,7 @@ jobs:
 
       - name: "Setup Python"
         id: "setup-python"
-        uses: "actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236" # v4.7.1
+        uses: "actions/setup-python@0a5c61591373683505ea898e09a3ea4f39ef2b9c" # v5.0.0
         with:
           python-version: "3.12"
           cache: "pip"
@@ -34,7 +34,7 @@ jobs:
         run: 'echo "wheel-filename=$(ls -1 dotbot_firefox*.whl | head -n 1)" >> $GITHUB_OUTPUT'
 
       - name: "Upload the build artifact"
-        uses: "actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32" # v3.1.3
+        uses: "actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392" # v4.0.0
         with:
           name: "dotbot_firefox-${{ github.sha }}.whl"
           path: "${{ steps.get-filename.outputs.wheel-filename }}"
@@ -80,7 +80,7 @@ jobs:
 
       - name: "Setup Pythons"
         id: "setup-python"
-        uses: "actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236" # v4.7.1
+        uses: "actions/setup-python@0a5c61591373683505ea898e09a3ea4f39ef2b9c" # v5.0.0
         with:
           python-version: "${{ join(matrix.run.cpythons, '\n') }}"
           allow-prereleases: true
@@ -93,7 +93,7 @@ jobs:
             requirements/**/*.txt
 
       - name: "Detect Pythons"
-        uses: "kurtmckee/detect-pythons@cd2193638306e04e41ac36f0f9290f18680138ac" # v1.0.0
+        uses: "kurtmckee/detect-pythons@38187a5464f266e93e5c1467699f7be2bf521d2e" # v1.1.0
 
       - name: "Restore cache"
         id: "restore-cache"
@@ -117,7 +117,7 @@ jobs:
           ${{ env.venv-path }}/pip install tox
 
       - name: "Download the build artifact"
-        uses: "actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a" # v3.0.2
+        uses: "actions/download-artifact@f44cd7b40bfd40b6aa1cc1b9b5b7bf03d3c67110" # v4.1.0
         with:
           name: "dotbot_firefox-${{ github.sha }}.whl"
 
