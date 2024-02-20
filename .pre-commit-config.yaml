@@ -31,7 +31,7 @@ repos:
         exclude: "README.rst"
 
   - repo: "https://github.com/asottile/pyupgrade"
-    rev: "v3.15.0"
+    rev: "v3.15.1"
     hooks:
       - id: "pyupgrade"
         name: "Enforce Python 3.8+ idioms"
@@ -39,24 +39,24 @@ repos:
           - "--py38-plus"
 
   - repo: "https://github.com/psf/black-pre-commit-mirror"
-    rev: "23.11.0"
+    rev: "24.2.0"
     hooks:
       - id: "black"
 
   - repo: "https://github.com/pycqa/isort"
-    rev: "5.12.0"
+    rev: "5.13.2"
     hooks:
       - id: "isort"
 
   - repo: "https://github.com/pycqa/flake8"
-    rev: "6.1.0"
+    rev: "7.0.0"
     hooks:
       - id: "flake8"
         additional_dependencies:
-          - "flake8-bugbear==23.9.16"
+          - "flake8-bugbear==24.2.6"
 
   - repo: "https://github.com/python-jsonschema/check-jsonschema"
-    rev: "0.27.2"
+    rev: "0.28.0"
     hooks:
       - id: "check-dependabot"
       - id: "check-github-workflows"
