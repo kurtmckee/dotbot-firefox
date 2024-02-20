@@ -16,6 +16,10 @@ dotbot = ">=1.20.1"
 requires = ["poetry-core>=1.5.0"]
 build-backend = "poetry.core.masonry.api"
 
+
+# Coverage
+# --------
+
 [tool.coverage.run]
 branch = true
 parallel = true
@@ -34,6 +38,10 @@ source = [
 [tool.coverage.report]
 fail_under = 100
 
+
+# Mypy
+# ----
+
 [tool.mypy]
 packages = "dotbot_firefox"
 strict = true
@@ -46,6 +54,10 @@ module = [
 ]
 ignore_missing_imports = true
 
+
+# Scriv
+# -----
+
 [tool.scriv]
 version = "literal: pyproject.toml: tool.poetry.version"
 categories = [
@@ -56,6 +68,10 @@ categories = [
     "Fixed",
     "Development",
 ]
+
+
+# Pytest
+# ------
 
 [tool.pytest.ini_options]
 addopts = "--color=yes"
