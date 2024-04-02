@@ -1,8 +1,5 @@
 [tool.poetry]
-name = "test requirements"
-version = "0"
-description = ""
-authors = []
+package-mode = false
 
 [tool.poetry.dependencies]
 python = ">=3.8"
@@ -11,7 +8,3 @@ pytest = "*"
 pytest-randomly = "*"
 pyfakefs = "*"
 tomli = {version = "*", markers = "python_version < '3.11'"}
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
