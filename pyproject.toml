@@ -9,7 +9,7 @@ repository = "https://github.com/kurtmckee/dotbot-firefox"
 keywords = ["dotbot", "dotbot-plugin", "firefox", "dotfiles"]
 
 [tool.poetry.dependencies]
-python = ">=3.8"
+python = ">=3.9"
 dotbot = ">=1.20.1"
 
 [build-system]
@@ -77,4 +77,6 @@ categories = [
 addopts = "--color=yes"
 filterwarnings = [
     "error",
+    # pyfakefs 5.6.0 on Python 3.13
+    "ignore:unclosed file:ResourceWarning:pyfakefs"
 ]
