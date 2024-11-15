@@ -1,3 +1,11 @@
+[build-system]
+requires = ["poetry-core>=1.5.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+# poetry
+# ------
+
 [tool.poetry]
 name = "dotbot-firefox"
 version = "1.1.0"
@@ -12,12 +20,8 @@ keywords = ["dotbot", "dotbot-plugin", "firefox", "dotfiles"]
 python = ">=3.9"
 dotbot = ">=1.20.1"
 
-[build-system]
-requires = ["poetry-core>=1.5.0"]
-build-backend = "poetry.core.masonry.api"
 
-
-# Coverage
+# coverage
 # --------
 
 [tool.coverage.run]
@@ -39,7 +43,7 @@ source = [
 fail_under = 100
 
 
-# Mypy
+# mypy
 # ----
 
 [tool.mypy]
@@ -55,7 +59,17 @@ module = [
 ignore_missing_imports = true
 
 
-# Scriv
+# pytest
+# ------
+
+[tool.pytest.ini_options]
+addopts = "--color=yes"
+filterwarnings = [
+    "error",
+]
+
+
+# scriv
 # -----
 
 [tool.scriv]
@@ -67,16 +81,4 @@ categories = [
     "Changed",
     "Fixed",
     "Development",
-]
-
-
-# Pytest
-# ------
-
-[tool.pytest.ini_options]
-addopts = "--color=yes"
-filterwarnings = [
-    "error",
-    # pyfakefs 5.6.0 on Python 3.13
-    "ignore:unclosed file:ResourceWarning:pyfakefs"
 ]
