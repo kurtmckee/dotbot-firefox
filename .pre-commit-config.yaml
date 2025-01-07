@@ -31,7 +31,7 @@ repos:
         exclude: "README.rst"
 
   - repo: "https://github.com/asottile/pyupgrade"
-    rev: "v3.19.0"
+    rev: "v3.19.1"
     hooks:
       - id: "pyupgrade"
         name: "Enforce Python 3.9+ idioms"
@@ -56,12 +56,12 @@ repos:
           - "flake8-bugbear==24.10.31"
 
   - repo: "https://github.com/python-jsonschema/check-jsonschema"
-    rev: "0.29.4"
+    rev: "0.30.0"
     hooks:
       - id: "check-dependabot"
       - id: "check-github-workflows"
 
   - repo: "https://github.com/kurtmckee/pre-commit-hooks"
-    rev: "v0.1.1"
+    rev: "v1.0.0"
     hooks:
       - id: "verify-consistent-pyproject-toml-python-requirements"
