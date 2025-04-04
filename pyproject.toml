@@ -1,24 +1,27 @@
-[build-system]
-requires = ["poetry-core>=1.5.0"]
-build-backend = "poetry.core.masonry.api"
-
-
-# poetry
-# ------
-
-[tool.poetry]
+[project]
 name = "dotbot-firefox"
 version = "1.1.0"
 description = "Configure your Firefox profile(s) using dotbot"
-authors = ["Kurt McKee <contactme@kurtmckee.org>"]
+authors = [
+    { name = "Kurt McKee", email = "contactme@kurtmckee.org" },
+]
 license = "MIT"
 readme = "README.rst"
 repository = "https://github.com/kurtmckee/dotbot-firefox"
-keywords = ["dotbot", "dotbot-plugin", "firefox", "dotfiles"]
+requires-python = ">=3.9"
+keywords = [
+    "dotbot",
+    "dotbot-plugin",
+    "dotfiles",
+    "firefox",
+]
+dependencies = [
+    "dotbot >=1.20.1",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.9"
-dotbot = ">=1.20.1"
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 
 # coverage
@@ -73,7 +76,7 @@ filterwarnings = [
 # -----
 
 [tool.scriv]
-version = "literal: pyproject.toml: tool.poetry.version"
+version = "literal: pyproject.toml: project.version"
 categories = [
     "Python support",
     "Added",
