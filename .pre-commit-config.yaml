@@ -26,9 +26,6 @@ repos:
     rev: "aa06cea887b26f372f9368aa53665266ec6dc364"  # frozen: v3.6.1
     hooks:
       - id: "editorconfig-checker"
-        # The README contains sample YAML code that uses 2-space indentation.
-        # This conflicts with the EditorConfig checker, so the file is excluded.
-        exclude: "README.rst"
 
   - repo: "https://github.com/asottile/pyupgrade"
     rev: "75992aaa40730136014f34227e0135f63fc951b4"  # frozen: v3.21.2
