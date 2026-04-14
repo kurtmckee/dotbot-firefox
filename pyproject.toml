@@ -89,11 +89,14 @@ ignore_missing_imports = true
 # pytest
 # ------
 
-[tool.pytest.ini_options]
-addopts = "--color=yes"
+[tool.pytest]
+addopts = [
+    "--color=yes",
+]
 filterwarnings = [
     "error",
 ]
+strict = true
 
 
 # scriv
