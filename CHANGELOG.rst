@@ -1,6 +1,7 @@
-..  dotbot-firefox -- Configure your Firefox profile(s) using dotbot.
-..  Copyright 2022-2025 Kurt McKee <contactme@kurtmckee.org>
-..  SPDX-License-Identifier: MIT
+..
+    This file is a part of dotbot-firefox <https://github.com/kurtmckee/dotbot-firefox>
+    Copyright 2022-2026 Kurt McKee <contactme@kurtmckee.org>
+    SPDX-License-Identifier: MIT
 
 
 dotbot-firefox
