@@ -14,7 +14,7 @@ import pytest
 if sys.version_info >= (3, 11):
     import tomllib
 else:
-    import tomli as tomllib
+    import tomli as tomllib  # noqa: F401
 
 import dotbot_firefox
 
@@ -112,26 +112,6 @@ def test_no_user_js_key(get_profile):
 
     plugin = dotbot_firefox.Firefox(context=None)
     assert plugin.handle("firefox", {}) is True
-
-
-def test_versions_match():
-    """Verify that duplicated version numbers all match."""
-
-    with open("pyproject.toml", "rb") as file:
-        toml_version: str = tomllib.load(file)["project"]["version"]
-    assert toml_version != ""
-
-    with open("dotbot_firefox.py") as file:
-        python = file.read()
-    python_version = ""
-    for line in python.splitlines():  # pragma: no branch
-        key, _, value = line.partition("=")
-        if key.strip() == "__version__":
-            python_version = value.strip('" ')
-            break
-    assert python_version != ""
-
-    assert toml_version == python_version
 
 
 def test_exactly_one_class_inheriting_from_dotbot_plugin():

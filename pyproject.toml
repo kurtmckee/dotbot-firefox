@@ -1,13 +1,12 @@
 [project]
 name = "dotbot-firefox"
-version = "1.1.0"
+dynamic = ["version"]
 description = "Configure your Firefox profile(s) using dotbot"
 authors = [
     { name = "Kurt McKee", email = "contactme@kurtmckee.org" },
 ]
 license = "MIT"
 readme = "README.rst"
-repository = "https://github.com/kurtmckee/dotbot-firefox"
 requires-python = ">=3.10"
 keywords = [
     "dotbot",
@@ -19,9 +18,14 @@ dependencies = [
     "dotbot >=1.20.1",
 ]
 
+[project.urls]
+Repository = "https://github.com/kurtmckee/dotbot-firefox"
+Changelog = "https://github.com/kurtmckee/dotbot-firefox/blob/main/CHANGELOG.rst"
+"Donate via GitHub" = "https://github.com/sponsors/kurtmckee"
+
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["flit_core >=3.12.0,<4"]
+build-backend = "flit_core.buildapi"
 
 
 # chipshot
@@ -96,7 +100,7 @@ filterwarnings = [
 # -----
 
 [tool.scriv]
-version = "literal: pyproject.toml: project.version"
+version = "literal: dotbot_firefox.py: __version__"
 categories = [
     "Python support",
     "Added",
