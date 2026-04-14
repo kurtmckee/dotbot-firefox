@@ -27,12 +27,11 @@ jobs:
         include:
           # These values will be applied to all runners listed above.
           - cpythons:
-              - "3.9"
               - "3.10"
               - "3.11"
               - "3.12"
               - "3.13"
-            cpython-beta: "3.14"
+              - "3.14"
             tox-post-environments:
               - "coverage-report-ci"
               - "mypy"
