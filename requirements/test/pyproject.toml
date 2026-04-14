@@ -1,10 +1,17 @@
 [tool.poetry]
 package-mode = false
 
-[tool.poetry.dependencies]
-python = ">=3.9"
-coverage = {extras = ["toml"], version = "*"}
-pytest = "*"
-pytest-randomly = "*"
-pyfakefs = "*"
-tomli = {version = "*", markers = "python_version < '3.11'"}
+[project]
+name = "dependencies"
+requires-python = ">=3.10"
+dependencies = [
+    "coverage[toml]",
+    "pyfakefs",
+    "pytest",
+    "pytest-randomly",
+]
+
+[dependency-groups]
+coverage = [
+    "coverage[toml]",
+]
